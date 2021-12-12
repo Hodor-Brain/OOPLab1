@@ -37,6 +37,10 @@ public class Torpedo {
      */
     private final Cylinder Cylinder;
     /**
+     * The torpedo's speed.
+     */
+    private int speed;
+    /**
      * The path of torpedo's moving.
      */
     private MotionPath path;
@@ -50,10 +54,18 @@ public class Torpedo {
      * @param assetManager Asset manager for models loading etc.
      * @param rootNode A node which contains all objects on the map.
      */
-    Torpedo(AssetManager assetManager, Node rootNode) {
+    Torpedo(AssetManager assetManager, Node rootNode, int speed) {
         this.rootNode = rootNode;
         Cylinder = new Cylinder(2, 32, 0.15f, 0.25f, 2f, true, false);
+        this.speed = speed;
         initMaterials(assetManager);
+    }
+    
+    public Torpedo(int speed)
+    {
+        this.speed = speed;
+        this.rootNode = new Node();
+        Cylinder = null;
     }
 
     /**
@@ -113,7 +125,7 @@ public class Torpedo {
         path.addWayPoint(location);
         path.addWayPoint(destination);
         
-        float duration = location.distance(destination)/8;
+        float duration = location.distance(destination) / speed;
         
         motionControl = new MotionEvent(torpedoNode, path);
         motionControl.setDirectionType(MotionEvent.Direction.PathAndRotation);
@@ -127,6 +139,10 @@ public class Torpedo {
      */
     public void playMotion() {
         motionControl.play();
+    }
+    
+    public int getSpeed(){
+        return speed; 
     }
 }
 

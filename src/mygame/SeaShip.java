@@ -54,6 +54,13 @@ public class SeaShip {
         createShip();
     }
     
+    public SeaShip(int speed)
+    {
+        this.speed = speed;
+        rootNode = new Node();
+        this.assetManager = null;
+    }
+    
     /**
      * Creates the ship object and attachs it to the shipNode.
      */
@@ -124,6 +131,10 @@ public class SeaShip {
      */
     public Vector3f getPosition() {
         return shipNode.getLocalTranslation();
+    }
+    
+    public int getSpeed(){
+        return speed;
     }
 }
 

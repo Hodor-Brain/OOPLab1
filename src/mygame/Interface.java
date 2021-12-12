@@ -59,8 +59,7 @@ public class Interface extends SimpleApplication {
 
         floor = new Floor(assetManager, rootNode, bulletAppState);
         shipCreator = new SeaShip(rootNode, assetManager, 10);
-        
-        torpedoCreator = new Torpedo(assetManager, rootNode);
+        torpedoCreator = new Torpedo(assetManager, rootNode, 8);
         
         flyCam.setEnabled(true);
         flyCam.setMoveSpeed(30);
@@ -89,12 +88,13 @@ public class Interface extends SimpleApplication {
     public void simpleUpdate(float tpf) {
         Vector3f point = calcPosition();
         
-        shipCreator.setMotion(point, floor.getFLOOR());
-        if (torpedoCreated)
+        if (torpedoCreated){
             torpedoCreator.setMotion(shipCreator.getPosition());
-        shipCreator.playMotion();
-        if (torpedoCreated)
             torpedoCreator.playMotion();
+        }
+        
+        shipCreator.setMotion(point, floor.getFLOOR());
+        shipCreator.playMotion();
     }
 
     /**
